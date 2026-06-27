@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Alokdey07.github.io/alok2026",
+  "homepage": "https://Alokdey07.github.io/alokandtitil/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
