@@ -1,4 +1,3 @@
-import React from 'react';
 import FloatingHearts from './components/FloatingHearts';
 import Hero from './components/Hero';
 import VideoSection from './components/VideoSection';
