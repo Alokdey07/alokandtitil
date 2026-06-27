@@ -1,75 +1,42 @@
-# React + TypeScript + Vite
+# Alok ❤️ Titil - A Love Story in Motion
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A beautiful, interactive React web application created as a digital proposal and a cinematic journey through memories. 
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Interactive 3D Heart**: A procedurally generated, beating 3D heart built with `Three.js` and `@react-three/fiber` that smoothly follows the user's mouse and touch movements.
+- **Cinematic Video Section**: A stunning scroll-tied video layout featuring glassmorphism overlays, parallax text scrolling effects, and smooth vignette blending into the dark theme.
+- **Ambient Particle System**: Soft, floating glowing hearts that continuously drift up the screen in the background.
+- **Playful Interactive Proposal**: A final "Will you marry me?" section featuring an interactive "No" button that playfully dodges the user's cursor or tap.
+- **Custom Engagement Ring Cursor**: A delightful custom CSS cursor that globally turns the mouse pointer into a 💍.
+- **Fully Responsive**: Optimized for both desktop and mobile devices with fluid typography, flex layouts, and touch-friendly interactions.
 
-## React Compiler
+## 🚀 Technologies Used
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** & **Vite** (for blazing fast modern development)
+- **Framer Motion** (for buttery smooth scroll animations and parallax effects)
+- **Three.js** & **React Three Fiber / Drei** (for rendering the metallic, emissive 3D heart)
+- **Lucide React** (for vector icons)
 
-## Expanding the ESLint configuration
+## 💻 Running Locally
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Start the Development Server:**
+   ```bash
+   npm run dev
+   ```
+3. Open your browser and navigate to `http://localhost:5173/`.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🌐 Deployment to GitHub Pages
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+This project is pre-configured to easily deploy to GitHub Pages.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+1. Make sure your GitHub repository is named `alokandtitil`.
+2. Open your terminal and run the automated deployment script:
+   ```bash
+   npm run deploy
+   ```
+   *This command will build the project and automatically push the optimized bundle to the `gh-pages` branch on GitHub.*
