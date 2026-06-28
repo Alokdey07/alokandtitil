@@ -20,7 +20,7 @@ const VideoSection: React.FC = () => {
       <div style={{ position: 'sticky', top: 0, height: '100vh', width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         
         {/* Video Background with Parallax Scale */}
-        <motion.div style={{ width: '100%', height: '100%', scale: scaleVideo, position: 'absolute' }}>
+        <motion.div style={{ position: 'absolute', inset: 0, scale: scaleVideo, overflow: 'hidden' }}>
           <video 
             src={videoSource}
             autoPlay 
@@ -28,9 +28,13 @@ const VideoSection: React.FC = () => {
             muted 
             playsInline
             style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
               width: '100%', 
               height: '100%', 
               objectFit: 'cover',
+              objectPosition: 'center',
               filter: 'brightness(0.7) contrast(1.1)'
             }} 
           />
