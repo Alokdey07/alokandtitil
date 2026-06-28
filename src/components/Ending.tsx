@@ -62,7 +62,14 @@ const Ending: React.FC = () => {
               zIndex: 2,
               flexShrink: 0
             }}
-            onClick={() => alert("She said YES! 🎉❤️")}
+            onClick={() => {
+              const whatsappLink = import.meta.env.VITE_WHATSAPP_LINK;
+              if (whatsappLink) {
+                window.location.href = whatsappLink;
+              } else {
+                alert("She said YES! 🎉❤️");
+              }
+            }}
           >
             Yes, a million times yes!
           </motion.button>
