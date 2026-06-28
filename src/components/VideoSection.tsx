@@ -1,10 +1,21 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 // @ts-ignore - Ignore TS complaining about mp4 import
-import videoSource from '../assets/Initial_Scene_-_2026-06-27_202606272058.mp4';
+import desktopVideo from '../assets/Initial_Scene_-_2026-06-27_202606272058.mp4';
+// @ts-ignore
+import mobileVideo from '../assets/mobile_video.mp4';
 
 const VideoSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -19,23 +30,21 @@ const VideoSection: React.FC = () => {
     <div ref={containerRef} style={{ height: '200vh', position: 'relative' }}>
       <div style={{ position: 'sticky', top: 0, height: '100vh', width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         
-        {/* Video Background with Parallax Scale */}
-        <motion.div style={{ position: 'absolute', inset: 0, scale: scaleVideo, overflow: 'hidden' }}>
+        {/* Main Video (Swaps source and sizing on mobile) */}
+        <motion.div style={{ position: 'absolute', inset: 0, scale: scaleVideo, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <video 
-            src={videoSource}
+            key={isMobile ? 'mobile' : 'desktop'} // Forces React to reload the video tag when source changes
+            src={isMobile ? mobileVideo : desktopVideo}
             autoPlay 
             loop 
             muted 
             playsInline
-            className="cinematic-video"
+            className="main-cinematic-video"
             style={{ 
-              position: 'absolute',
-              top: 0,
-              left: 0,
               width: '100%', 
-              height: '100%',
+              height: '100%', 
               objectPosition: 'center',
-              filter: 'brightness(0.7) contrast(1.1)'
+              filter: 'brightness(0.85) contrast(1.1)'
             }} 
           />
           {/* Vignette overlays to blend the video smoothly into the dark theme */}

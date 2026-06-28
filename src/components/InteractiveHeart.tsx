@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { MeshDistortMaterial, Float, ContactShadows } from '@react-three/drei';
@@ -29,18 +29,54 @@ function HeartModel() {
     bevelThickness: 1,
   };
 
+  const [pulse, setPulse] = useState(1);
+  const orientation = useRef({ beta: 0, gamma: 0 });
+
+  useEffect(() => {
+    // 1. Listen for device tilt (Gyroscope/Accelerometer)
+    const handleOrientation = (e: DeviceOrientationEvent) => {
+      orientation.current = {
+        beta: e.beta || 0,
+        gamma: e.gamma || 0
+      };
+    };
+    window.addEventListener('deviceorientation', handleOrientation as any);
+
+    // 2. Listen for global taps to trigger a heartbeat pulse
+    const handleTap = () => {
+      setPulse(1.4); // swell up
+      setTimeout(() => setPulse(1), 150); // snap back
+    };
+    window.addEventListener('pointerdown', handleTap);
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation as any);
+      window.removeEventListener('pointerdown', handleTap);
+    };
+  }, []);
+
   // Follow the mouse cursor smoothly and keep it alive on mobile
   useFrame((state) => {
     if (meshRef.current) {
       // Continuous slow rotation base
       const baseRotationY = state.clock.elapsedTime * 0.2;
       
-      // Offset by pointer interaction
-      const targetX = (state.pointer.x * Math.PI) / 3;
-      const targetY = (state.pointer.y * Math.PI) / 3;
+      let targetX = (state.pointer.x * Math.PI) / 3;
+      let targetY = (state.pointer.y * Math.PI) / 3;
+
+      // If mobile sensors are detecting tilt, override the pointer!
+      if (Math.abs(orientation.current.gamma) > 1 || Math.abs(orientation.current.beta) > 1) {
+        targetX = (orientation.current.gamma * Math.PI) / 180; // Left-Right tilt
+        // Phones are usually held tilted up at ~45 degrees, so we subtract 45 to find neutral center
+        targetY = ((orientation.current.beta - 45) * Math.PI) / 180; 
+      }
       
       meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, baseRotationY + targetX, 0.1);
       meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, Math.PI - targetY, 0.1);
+
+      // Apply the heartbeat pulse scale
+      const targetScale = pulse * 0.12;
+      meshRef.current.scale.setScalar(THREE.MathUtils.lerp(meshRef.current.scale.x, targetScale, 0.2));
     }
   });
 

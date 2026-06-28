@@ -53,12 +53,13 @@ h1, h2, h3, .serif {
   border-radius: 20px;
 }
 
-.cinematic-video {
+.main-cinematic-video {
   object-fit: cover;
 }
 
 @media (max-width: 768px) {
-  .cinematic-video {
+  .main-cinematic-video {
+    /* On mobile, show the whole video uncropped. The blurred background will fill the empty space! */
     object-fit: contain !important;
   }
 }
