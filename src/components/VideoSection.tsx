@@ -27,13 +27,13 @@ const VideoSection: React.FC = () => {
             loop 
             muted 
             playsInline
+            className="cinematic-video"
             style={{ 
               position: 'absolute',
               top: 0,
               left: 0,
               width: '100%', 
-              height: '100%', 
-              objectFit: 'cover',
+              height: '100%',
               objectPosition: 'center',
               filter: 'brightness(0.7) contrast(1.1)'
             }} 
